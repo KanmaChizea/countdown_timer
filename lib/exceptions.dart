@@ -1,0 +1,1 @@
+class NoTimeSelected implements Exception {}
