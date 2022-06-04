@@ -22,7 +22,7 @@ class AfterStart extends StatelessWidget {
                   width: 280,
                   child: CircularProgressIndicator(
                     backgroundColor: Colors.white,
-                    strokeWidth: 10,
+                    strokeWidth: 5,
                     value: ((timerController.hour.value * 60 * 60) +
                             (timerController.min.value * 60) +
                             timerController.sec.value) /

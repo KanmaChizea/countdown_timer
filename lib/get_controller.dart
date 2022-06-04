@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:countdown_timer/exceptions.dart';
+import 'package:countdown_timer/notifications.dart';
 import 'package:get/get.dart';
 
 class TimerController extends GetxController {
@@ -62,11 +63,36 @@ class TimerController extends GetxController {
         sec.value = 60;
       }
       if (sec.value == 0 && min.value == 0 && hour.value == 0) {
+        sendNotification();
         timer.cancel();
+
         isStart.value = false;
         return;
       }
       sec.value--;
     });
+  }
+
+  sendNotification() async {
+    int h, m, s;
+
+    h = inputtedTime.value ~/ 3600;
+
+    m = ((inputtedTime.value - h * 3600)) ~/ 60;
+
+    s = inputtedTime.value - (h * 3600) - (m * 60);
+
+    String hourLeft =
+        h.toString().length < 2 ? "0" + h.toString() : h.toString();
+
+    String minuteLeft =
+        m.toString().length < 2 ? "0" + m.toString() : m.toString();
+
+    String secondsLeft =
+        s.toString().length < 2 ? "0" + s.toString() : s.toString();
+
+    String result = "$hourLeft:$minuteLeft:$secondsLeft";
+
+    await createNotification(title.value, result);
   }
 }
